@@ -25,7 +25,7 @@ func New() *BlogFetcher {
 	}
 }
 
-func (f *BlogFetcher) FetchPosts() (map[int]*entity.Post, error) {
+func (f *BlogFetcher) FetchPosts(start, size int) (map[int]*entity.Post, error) {
 	p, err := fetchPosts()
 	if err != nil {
 		return nil, err
@@ -35,7 +35,7 @@ func (f *BlogFetcher) FetchPosts() (map[int]*entity.Post, error) {
 		return nil, err
 	}
 	f.createUsersMap(u)
-	f.createPostsMap(p)
+	f.createPostsMap(p, start, size)
 
 	return f.posts, nil
 }
@@ -70,17 +70,23 @@ func (f *BlogFetcher) createUsersMap(users []*entity.User) {
 	}
 }
 
-func (f *BlogFetcher) createPostsMap(posts []*entity.Post) error {
+func (f *BlogFetcher) createPostsMap(posts []*entity.Post, start, size int) error {
 	for _, p := range posts {
-		f.posts[p.Id] = p
-		f.posts[p.Id].User = f.users[p.UserId]
-		c, err := f.fetchComments(p.Id)
-		if err != nil {
-			return err
+		if isFromQueryRange(start, size, p.Id) {
+			f.posts[p.Id] = p
+			f.posts[p.Id].User = f.users[p.UserId]
+			c, err := f.fetchComments(p.Id)
+			if err != nil {
+				return err
+			}
+			f.posts[p.Id].Comments = c
 		}
-		f.posts[p.Id].Comments = c
 	}
 	return nil
+}
+
+func isFromQueryRange(start, size, value int) bool {
+	return value > start && value <= (start+size)
 }
 
 func (r *BlogFetcher) fetchComments(postId int) ([]*entity.Comment, error) {
