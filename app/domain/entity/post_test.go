@@ -29,10 +29,9 @@ func TestNewPost(t *testing.T) {
 				body:   "Body",
 			},
 			want: &entity.Post{
-				Id:     1,
-				PostId: 1,
-				Title:  "Title",
-				Body:   "Body",
+				Id:    1,
+				Title: "Title",
+				Body:  "Body",
 			},
 		},
 		{
@@ -44,10 +43,9 @@ func TestNewPost(t *testing.T) {
 				body:   "Body2",
 			},
 			want: &entity.Post{
-				Id:     2,
-				PostId: 2,
-				Title:  "Title2",
-				Body:   "Body2",
+				Id:    2,
+				Title: "Title2",
+				Body:  "Body2",
 			},
 		},
 	}

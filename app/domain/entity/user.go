@@ -1,10 +1,10 @@
 package entity
 
 type User struct {
-	Id       int
-	Name     string
-	UserName string
-	Email    string
+	Id       int    `json:"id"`
+	Name     string `json:"name"`
+	UserName string `json:"username"`
+	Email    string `json:"email"`
 }
 
 func NewUser(id int, name, userName, email string) *User {

@@ -1,11 +1,11 @@
 package entity
 
 type Comment struct {
-	Id     int
-	PostId int
-	Name   string
-	Email  string
-	Body   string
+	Id     int    `json:"id"`
+	PostId int    `json:"postId"`
+	Name   string `json:"name"`
+	Email  string `json:"email"`
+	Body   string `json:"body"`
 }
 
 func NewComment(id, postId int, name, email, body string) *Comment {
