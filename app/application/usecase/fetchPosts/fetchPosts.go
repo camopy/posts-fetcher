@@ -20,6 +20,6 @@ type Input struct {
 	Size  int
 }
 
-func (f *FetchPosts) Execute(input Input) (map[int]*entity.Post, error) {
+func (f *FetchPosts) Execute(input Input) ([]*entity.Post, error) {
 	return f.blogFetcher.FetchPosts(input.Start, input.Size)
 }

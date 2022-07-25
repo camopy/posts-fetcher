@@ -10,7 +10,9 @@ import (
 )
 
 func TestFetchPosts(t *testing.T) {
-	blogFetcher := blogfetcher.New()
+	blogFetcher, err := blogfetcher.New()
+	require.NoError(t, err)
+
 	fetchPosts := fetchposts.New(blogFetcher)
 
 	input := fetchposts.Input{Start: 10, Size: 10}
