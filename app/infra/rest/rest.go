@@ -71,6 +71,12 @@ func (rest *Rest) GetPosts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if len(p) == 0 {
+		fmt.Printf("no posts found")
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+
 	if err := json.NewEncoder(w).Encode(p); err != nil {
 		fmt.Printf("can not encode posts: %v", err)
 		w.WriteHeader(http.StatusInternalServerError)
