@@ -1,7 +1,10 @@
 package api
 
-import "github.com/camopy/posts-fetcher/app/domain/entity"
+import (
+	"net/http"
+)
 
 type Api interface {
-	GetPosts() ([]*entity.Post, error)
+	Serve() error
+	GetPosts(w http.ResponseWriter, r *http.Request)
 }
